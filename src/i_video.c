@@ -264,7 +264,11 @@ static void SetShowCursor(boolean show)
     {
         // When the cursor is hidden, grab the input.
         // Relative mode implicitly hides the cursor.
-        SDL_SetRelativeMouseMode(!show);
+        // SDL_SetRelativeMouseMode(!show);
+
+        // release mouse capture.
+          SDL_SetRelativeMouseMode(SDL_FALSE);
+
         SDL_GetRelativeMouseState(NULL, NULL);
     }
 }
@@ -1367,6 +1371,9 @@ static void SetVideoMode(void)
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
 
+    // Minimize 
+    SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "1");
+
     // Create the intermediate texture that the RGBA surface gets loaded into.
     // The SDL_TEXTUREACCESS_STREAMING flag means that this texture's content
     // is going to change frequently.
@@ -1474,6 +1481,11 @@ void I_InitGraphics(void)
     // finally rendered into our window or full screen in I_FinishUpdate().
 
     I_VideoBuffer = screenbuffer->pixels;
+    // luke
+    SDL_PixelFormat *format = screenbuffer->format;
+    int bpp = format->BitsPerPixel;
+    printf("Bits per pixel: %d\n", bpp);
+    // end luke
     V_RestoreBuffer();
 
     // Clear the screen to black.

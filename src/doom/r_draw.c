@@ -136,7 +136,8 @@ void R_DrawColumn (void)
     {
 	// Re-map color indices from wall texture column
 	//  using a lighting/special effects LUT.
-	*dest = dc_colormap[dc_source[(frac>>FRACBITS)&127]];
+	 *dest = dc_colormap[dc_source[(frac>>FRACBITS)&127]];
+   // *dest = 200;
 	
 	dest += SCREENWIDTH; 
 	frac += fracstep;
@@ -616,6 +617,9 @@ void R_DrawSpan (void)
 	// Lookup pixel from flat texture tile,
 	//  re-index using light/colormap.
 	*dest++ = ds_colormap[ds_source[spot]];
+    //*dest = 208;
+    //printf("Rendering with solid color\n");
+
 
         position += step;
 

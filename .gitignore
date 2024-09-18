@@ -61,3 +61,19 @@ GTAGS
 # VSCode settings
 
 /.vscode/
+
+# Luke Modification
+/docs/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.WAD
+*.wad
+*.bak
+Doxyfile
+src/src/midiread
+src/src/mus2mid
+src/src/setup/setup-manifest.xml
+
+
+

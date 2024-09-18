@@ -276,8 +276,15 @@ R_PointToAngle
 ( fixed_t	x,
   fixed_t	y )
 {	
+    int xbefore = x >>16;
+    int ybefore = y>>16;
+
+
     x -= viewx;
     y -= viewy;
+
+    int fx = x >>16;
+    int fy = y>>16;
     
     if ( (!x) && (!y) )
 	return 0;
@@ -308,6 +315,7 @@ R_PointToAngle
 	    if (x>y)
 	    {
 		// octant 8
+        angle_t temp = tantoangle[SlopeDiv(y,x)];
 		return -tantoangle[SlopeDiv(y,x)];
 	    }
 	    else
@@ -655,7 +663,8 @@ R_SetViewSize
   int		detail )
 {
     setsizeneeded = true;
-    setblocks = blocks;
+    // setblocks = blocks;
+    setblocks = 11;
     setdetail = detail;
 }
 
@@ -773,6 +782,7 @@ void R_Init (void)
     // viewwidth / viewheight / detailLevel are set by the defaults
     printf (".");
 
+
     R_SetViewSize (screenblocks, detailLevel);
     R_InitPlanes ();
     printf (".");
@@ -861,6 +871,7 @@ void R_SetupFrame (player_t* player)
 //
 void R_RenderPlayerView (player_t* player)
 {	
+    int renderBSPNodeCount = 0; // Declare a count variable
     R_SetupFrame (player);
 
     // Clear buffers.
@@ -872,8 +883,18 @@ void R_RenderPlayerView (player_t* player)
     // check for new console commands.
     NetUpdate ();
 
+    
+
+    // Pass the address of the count variable when calling R_RenderBSPNode
+    R_RenderBSPNode(numnodes - 1, &renderBSPNodeCount);
+
+    // Print the count
+    printf("R_RenderBSPNode has been called %d times.\n", renderBSPNodeCount);
+
+    printf("Rendering with solid color\n");
+
     // The head node is the last node output.
-    R_RenderBSPNode (numnodes-1);
+   // R_RenderBSPNode (numnodes-1);
     
     // Check for new console commands.
     NetUpdate ();

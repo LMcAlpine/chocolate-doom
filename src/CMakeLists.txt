@@ -252,3 +252,6 @@ add_executable(mus2mid mus2mid.c memio.c z_native.c i_system.c m_argv.c m_misc.c
 target_compile_definitions(mus2mid PRIVATE "-DSTANDALONE")
 target_include_directories(mus2mid PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
 target_link_libraries(mus2mid SDL2::SDL2)
+
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_C_FLAGS_DEBUG "-g -O0")

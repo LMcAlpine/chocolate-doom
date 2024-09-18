@@ -471,7 +471,9 @@ void P_LoadLineDefs (int lump)
 	    ld->bbox[BOXTOP] = v1->y;
 	}
 
+    // right sidedef index?
 	ld->sidenum[0] = SHORT(mld->sidenum[0]);
+    //left sidedef index?
 	ld->sidenum[1] = SHORT(mld->sidenum[1]);
 
 	if (ld->sidenum[0] != -1)
